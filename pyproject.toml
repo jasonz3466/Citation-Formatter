@@ -1,0 +1,23 @@
+[project]
+name = "citation-formatter"
+version = "0.4.1"
+description = "A focused citation workspace for APA, MLA, and Chicago styles"
+readme = "README.md"
+authors = [{ name = "Jason Zheng" }]
+requires-python = ">=3.11"
+dependencies = [
+    "flask>=3.0.3,<4",
+    "certifi>=2024.7.4",
+    "gunicorn>=23,<24; platform_system != 'Windows'",
+]
+
+[project.scripts]
+quickcite = "citation_formatter.cli:main"
+citation-formatter = "citation_formatter.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.12.9,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv]
+package = true

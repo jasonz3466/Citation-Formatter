@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Create APA, MLA, and Chicago citations from one focused workspace.">
+<meta name="theme-color" content="#f4f5f6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111418" media="(prefers-color-scheme: dark)">
+<title>QuickCite | Citation formatter</title>
+<link rel="icon" href="../static/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+<a class="skip-link" href="#entry">Skip to source details</a>
+<svg class="icon-defs" aria-hidden="true">
+  <symbol id="i-book" viewBox="0 0 24 24">
+    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+  </symbol>
+  <symbol id="i-article" viewBox="0 0 24 24">
+    <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9h4"/>
+    <path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/>
+  </symbol>
+  <symbol id="i-chapter" viewBox="0 0 24 24">
+    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+  </symbol>
+  <symbol id="i-website" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+  </symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24">
+    <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+  </symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24">
+    <path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+  </symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/>
+  </symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3 6.6 6.6 0 0 0 21 12.8z"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v7H6z"/></symbol>
+</svg>
+
+<div class="app-shell">
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="brand-block">
+        <div class="brand-mark" aria-hidden="true"><svg class="icon"><use href="#i-book"/></svg></div>
+        <div class="brand-copy">
+          <h1>QuickCite</h1>
+          <p class="product-name">Citation formatter</p>
+          <p class="standfirst">Build APA, MLA, and Chicago citations from the same source details.</p>
+        </div>
+      </div>
+      <div class="masthead-actions">
+        <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Change color theme" title="Change color theme">
+          <svg class="icon theme-icon theme-icon--sun" aria-hidden="true"><use href="#i-sun"/></svg>
+          <svg class="icon theme-icon theme-icon--moon" aria-hidden="true"><use href="#i-moon"/></svg>
+          <span><span class="theme-prefix">Theme:</span> <span data-theme-label>System</span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="workspace-nav" aria-label="Workspace navigation">
+    <div class="nav-inner">
+      <a class="nav-link is-active" href="#entry" aria-current="page"><span>Source details</span></a>
+      <a class="nav-link" href="#results"><span>Citation preview</span></a>
+      <a class="nav-link" href="#library"><span>Saved list</span><span class="nav-count" id="list-link-count">0</span></a>
+    </div>
+  </nav>
+
+  <main class="workspace">
+    <div class="primary-grid">
+      <section class="entry" id="entry" aria-labelledby="entry-heading">
+        <div class="section-heading">
+          <div>
+            <h2 id="entry-heading">Source details</h2>
+            <p class="section-copy">Add the details you know. The preview updates as you work.</p>
+          </div>
+        </div>
+
+        <div class="lookup lookup-card">
+          <div class="lookup-heading">
+            <div>
+              <h3>Start with a DOI or ISBN</h3>
+              <p class="card-copy">Import available source details, review them, then decide what to keep.</p>
+            </div>
+          </div>
+          <div class="lookup-row">
+            <div class="input-shell input-shell--icon">
+              <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+              <input class="isbn-bar" type="text" id="identifier" placeholder="10.xxxx/yyyy or 978..." aria-describedby="lookup-status">
+            </div>
+            <button type="button" id="lookup" class="button-solid"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><span>Look up</span></button>
+          </div>
+          <p class="hint" id="lookup-status" role="status" aria-live="polite">You can also enter every detail manually below.</p>
+        </div>
+
+        <div class="type-picker-shell">
+          <div class="control-heading">
+            <div>
+              <h3 class="control-title">Source type</h3>
+              <p class="control-copy">Choose the format that best matches your source.</p>
+            </div>
+          </div>
+          <div class="type-picker" role="group" aria-label="Source type">
+            <button type="button" class="type-option" data-type="book" aria-pressed="false"><span class="type-icon"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg></span><span class="type-label">Book</span><span class="type-description">One author or editor-led book</span></button>
+            <button type="button" class="type-option" data-type="article" aria-pressed="false"><span class="type-icon"><svg class="icon" aria-hidden="true"><use href="#i-article"/></svg></span><span class="type-label">Journal article</span><span class="type-description">Volume, issue, and pages</span></button>
+            <button type="button" class="type-option" data-type="chapter" aria-pressed="false"><span class="type-icon"><svg class="icon" aria-hidden="true"><use href="#i-chapter"/></svg></span><span class="type-label">Book chapter</span><span class="type-description">Chapter inside a collection</span></button>
+            <button type="button" class="type-option" data-type="website" aria-pressed="false"><span class="type-icon"><svg class="icon" aria-hidden="true"><use href="#i-website"/></svg></span><span class="type-label">Web page</span><span class="type-description">Page title, site, and date</span></button>
+          </div>
+        </div>
+
+        <div class="field-group field-card">
+          <div class="group-heading">
+            <div><h3>Source</h3><p>Start with the author and title.</p></div>
+          </div>
+          <div class="fields">
+            <div class="field field--wide" data-for="book article chapter website">
+              <div class="field-label-row"><label for="author_mode"><span class="label-text">Author type</span><span class="flag" hidden>recommended</span></label><span class="field-meta">How names are interpreted</span></div>
+              <select id="author_mode" name="author_mode"><option value="people">Person or people</option><option value="organization">Organization or group</option><option value="unknown">No known author</option></select>
+              <p class="hint">Choose Organization to keep a group name intact.</p>
+            </div>
+            <div class="field field--wide" data-for="book article chapter website">
+              <div class="field-label-row"><label for="authors"><span class="label-text">Authors</span><span class="flag" hidden>recommended</span></label><span class="field-meta">One per line</span></div>
+              <textarea id="authors" name="authors" rows="3" placeholder="Young, Hugh D.&#10;Freedman, Roger A."></textarea>
+              <p class="hint">For people, use surname first. Example: King, Martin Luther, Jr. Wrap a mixed-list group in [square brackets].</p>
+            </div>
+            <div class="field field--wide" data-for="book article chapter website">
+              <div class="field-label-row"><label for="title"><span class="label-text" data-label-book="Book title" data-label-article="Article title" data-label-chapter="Chapter title" data-label-website="Page title">Book title</span><span class="flag" hidden>recommended</span></label></div>
+              <input type="text" id="title" name="title" placeholder="">
+            </div>
+            <div class="field field--wide" data-for="book article chapter website">
+              <div class="field-label-row"><label for="capitalization"><span class="label-text">Title capitalization</span><span class="flag" hidden>recommended</span></label><span class="field-meta">Formatting preference</span></div>
+              <select id="capitalization" name="capitalization"><option value="auto">Automatic style capitalization</option><option value="preserve">Preserve exactly as entered</option></select>
+              <p class="hint">Preserve mode keeps title and container capitals in all three styles.</p>
+            </div>
+          </div>
+          <p class="parsed-authors" id="parsed-authors"></p>
+        </div>
+
+        <details class="field-group field-card extra-details">
+          <summary><span><strong>Editors and translators</strong><small>Optional contributor details</small></span><span class="summary-note">Open when relevant</span></summary>
+          <div class="fields">
+            <div class="field field--wide" data-for="book chapter">
+              <div class="field-label-row"><label for="editors"><span class="label-text">Editors</span><span class="flag" hidden>recommended</span></label></div>
+              <textarea id="editors" name="editors" rows="2" placeholder="Copeland, B. Jack"></textarea>
+            </div>
+            <div class="field field--wide" data-for="book chapter">
+              <div class="field-label-row"><label for="translators"><span class="label-text">Translators</span><span class="flag" hidden>recommended</span></label></div>
+              <textarea id="translators" name="translators" rows="2" placeholder=""></textarea>
+            </div>
+          </div>
+        </details>
+
+        <div class="field-group field-card">
+          <div class="group-heading">
+            <div><h3>Publication details</h3><p>Add the fields shown for this source type.</p></div>
+          </div>
+          <div class="fields">
+            <div class="field field--wide" data-for="article chapter website">
+              <div class="field-label-row"><label for="container"><span class="label-text" data-label-article="Journal name" data-label-chapter="Book title" data-label-website="Website name">Journal name</span><span class="flag" hidden>recommended</span></label></div>
+              <input type="text" id="container" name="container" placeholder="">
+            </div>
+            <div class="field" data-for="book chapter">
+              <div class="field-label-row"><label for="publisher"><span class="label-text">Publisher</span><span class="flag" hidden>recommended</span></label></div>
+              <input type="text" id="publisher" name="publisher" placeholder="">
+            </div>
+            <div class="field" data-for="book chapter">
+              <div class="field-label-row"><label for="city"><span class="label-text">City</span><span class="flag" hidden>recommended</span></label></div>
+              <input type="text" id="city" name="city" placeholder="">
+              <p class="hint">Used for Chicago 17.</p>
+            </div>
+            <div class="field" data-for="book article chapter">
+              <div class="field-label-row"><label for="year"><span class="label-text">Year</span><span class="flag" hidden>recommended</span></label></div>
+              <input type="text" id="year" name="year" placeholder="2026">
+            </div>
+            <div class="field field--wide" data-for="website">
+              <div class="field-label-row"><label for="published_date"><span class="label-text">Date published</span><span class="flag" hidden>recommended</span></label><span class="field-meta">YYYY, YYYY-MM, or full date</span></div>
+              <input type="text" id="published_date" name="published_date" placeholder="2026-09-05">
+              <p class="hint">Leave blank if unknown.</p>
+            </div>
+            <div class="field" data-for="book chapter">
+              <div class="field-label-row"><label for="edition"><span class="label-text">Edition</span><span class="flag" hidden>recommended</span></label></div>
+              <input type="text" id="edition" name="edition" placeholder="2, or revised">
+            </div>
+            <div class="field" data-for="article">
+              <div class="field-label-row"><label for="volume"><span class="label-text">Volume</span><span class="flag" hidden>recommended</span></label></div>
+              <input type="text" id="volume" name="volume" placeholder="">
+            </div>
+            <div class="field" data-for="article">
+              <div class="field-label-row"><label for="issue"><span class="label-text">Issue</span><span class="flag" hidden>recommended</span></label></div>
+              <input type="text" id="issue" name="issue" placeholder="">
+            </div>
+            <div class="field" data-for="article chapter">
+              <div class="field-label-row"><label for="pages"><span class="label-text">Full source page range</span><span class="flag" hidden>recommended</span></label></div>
+              <input type="text" id="pages" name="pages" placeholder="379-423">
+            </div>
+            <div class="field" data-for="article">
+              <div class="field-label-row"><label for="article_number"><span class="label-text">Article number</span><span class="flag" hidden>recommended</span></label></div>
+              <input type="text" id="article_number" name="article_number" placeholder="e12345">
+              <p class="hint">Use when the journal supplies an article number instead of pages.</p>
+            </div>
+            <div class="field field--wide" data-for="book article chapter website">
+              <div class="field-label-row"><label for="cited_page"><span class="label-text">Page or pages you are citing</span><span class="flag" hidden>recommended</span></label><span class="field-meta">Used in-text or in notes</span></div>
+              <input type="text" id="cited_page" name="cited_page" placeholder="12, or 12-15">
+              <p class="hint">Separate this from the full source page range.</p>
+            </div>
+          </div>
+        </div>
+
+        <details class="field-group field-card extra-details" open>
+          <summary><span><strong>Identifiers and links</strong><small>DOI, ISBN, and URL</small></span><span class="summary-note">Optional</span></summary>
+          <div class="fields">
+            <div class="field field--wide" data-for="book article chapter">
+              <div class="field-label-row"><label for="doi"><span class="label-text">DOI</span><span class="flag" hidden>recommended</span></label></div>
+              <input type="text" id="doi" name="doi" placeholder="10.1002/example">
+            </div>
+            <div class="field" data-for="book">
+              <div class="field-label-row"><label for="isbn"><span class="label-text">ISBN</span><span class="flag" hidden>recommended</span></label></div>
+              <input type="text" id="isbn" name="isbn" placeholder="9780321973610">
+              <p class="hint">Retained with the source and used for duplicate detection.</p>
+            </div>
+            <div class="field" data-for="book article chapter website">
+              <div class="field-label-row"><label for="url"><span class="label-text">URL</span><span class="flag" hidden>recommended</span></label></div>
+              <input type="text" id="url" name="url" placeholder="https://">
+              <p class="hint">A DOI takes precedence when both are supplied.</p>
+            </div>
+          </div>
+        </details>
+
+        <div class="entry-actions">
+          <div class="action-cluster"><button type="button" id="example" class="link-button">Load an example</button><button type="button" id="clear" class="link-button">Clear / new source</button></div>
+          <span class="action-note">Your draft stays in this tab. Press Ctrl or Command + Enter to save.</span>
+        </div>
+      </section>
+
+      <aside class="results" id="results" aria-labelledby="results-heading">
+        <div class="results-inner">
+          <div class="results-topline"><div><h2 id="results-heading">Citation preview</h2><p class="section-copy">All three styles update together.</p></div><span class="preview-state"><span class="live-dot" aria-hidden="true"></span> Live</span></div>
+          <div class="results-bar">
+            <div class="results-status-block"><p id="editing-status" class="editing-status">New source</p><p class="status" id="status" role="status" aria-live="polite"></p></div>
+            <div class="results-tools"><button type="button" id="save" class="button-solid"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg><span id="save-label">Save to list</span></button><button type="button" id="new-source" class="button-secondary" hidden>Finish editing</button></div>
+          </div>
+          <div class="copy-options">
+            <div class="copy-select"><label for="copy-mode">Copy format</label><select id="copy-mode"><option value="formatted">Formatted with italics</option><option value="plain">Plain text</option></select></div>
+            <button type="button" id="copy-all" class="button-quiet"><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy all three</span></button>
+          </div>
+
+          <div class="results-list">
+            <article class="result">
+              <div class="result-head"><div class="result-title"><span class="style-chip style-chip--apa">A</span><div><h3>APA <span class="edition-note">7th edition</span></h3><p class="result-caption">Author-date reference</p></div></div><button type="button" class="copy button-quiet" data-style="APA" aria-label="Copy the APA citation"><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></div>
+              <p class="citation" id="out-APA"></p>
+              <dl class="intext" id="intext-APA"></dl>
+              <p class="word-hint" id="word-hint">Dotted title words need a capitalization check. Click an available title word to change it for this source, then save your changes.</p>
+              <p class="learned" id="learned" hidden><span class="learned-count"></span> <button type="button" id="forget" class="link-button">Reset corrections</button></p>
+            </article>
+            <article class="result">
+              <div class="result-head"><div class="result-title"><span class="style-chip style-chip--mla">M</span><div><h3>MLA <span class="edition-note">9th edition</span></h3><p class="result-caption">Author-page reference</p></div></div><button type="button" class="copy button-quiet" data-style="MLA" aria-label="Copy the MLA citation"><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></div>
+              <p class="citation" id="out-MLA"></p>
+              <dl class="intext" id="intext-MLA"></dl>
+            </article>
+            <article class="result">
+              <div class="result-head"><div class="result-title"><span class="style-chip style-chip--chicago">C</span><div><h3>Chicago <span class="edition-note">17th edition</span></h3><p class="result-caption">Notes and bibliography</p></div></div><button type="button" class="copy button-quiet" data-style="Chicago" aria-label="Copy the Chicago citation"><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></div>
+              <p class="citation" id="out-Chicago"></p>
+              <dl class="intext" id="intext-Chicago"></dl>
+            </article>
+          </div>
+
+          <div class="results-footer"><p class="colophon">Check citations against your assignment's guide. Unusual sources, names, and automatic capitalization can need manual review.</p><a class="mobile-details-link" href="#entry">Back to source details</a></div>
+        </div>
+      </aside>
+    </div>
+
+    <section class="library" id="library" aria-labelledby="library-heading">
+      <div class="library-head">
+        <div class="library-title-block"><h2 id="library-heading"><span id="library-heading-text">References</span> <span class="library-count" id="library-count">0 sources</span></h2><p class="section-copy">Build a bibliography you can edit, copy, print, or download.</p></div>
+        <div class="library-tools">
+          <div class="style-picker" role="group" aria-label="Bibliography style"><button type="button" class="style-option is-selected" data-style="APA" aria-pressed="true">APA</button><button type="button" class="style-option" data-style="MLA" aria-pressed="false">MLA</button><button type="button" class="style-option" data-style="Chicago" aria-pressed="false">Chicago</button></div>
+          <div class="library-actions"><button type="button" id="copy-library" class="button-solid"><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy list</span></button><a id="export-library" class="button-quiet" href="/api/library/export?style=APA" download="bibliography.html"><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg><span>Download HTML</span></a><button type="button" id="print-library" class="button-quiet"><svg class="icon" aria-hidden="true"><use href="#i-print"/></svg><span>Print</span></button><button type="button" id="clear-library" class="button-quiet button-danger">Empty list</button></div>
+        </div>
+      </div>
+      <div class="library-filter-bar">
+        <label for="library-filter">Filter saved sources</label>
+        <div class="input-shell input-shell--icon">
+          <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+          <input type="search" id="library-filter" placeholder="Search by title, author, DOI, or ISBN" autocomplete="off">
+        </div>
+        <p id="library-filter-status" class="filter-status" role="status" aria-live="polite"></p>
+      </div>
+      <div class="library-status-row"><p class="status" id="library-status" role="status" aria-live="polite"></p><p id="undo-bar" hidden>Removed a source by mistake? <button type="button" id="undo-remove" class="link-button">Undo last removal</button></p></div>
+      <div class="empty-library-card" id="empty-library"><div class="icon-tile" aria-hidden="true"><svg class="icon"><use href="#i-book"/></svg></div><div><strong>Your saved list is ready</strong><p>Save a source to start your bibliography. Saved sources stay here after you close the app.</p></div></div>
+      <div class="empty-library-card" id="filter-empty" hidden><div><strong>No saved sources match</strong><p>Try a different title, author, DOI, or ISBN.</p></div></div>
+      <ol class="library-list" id="library-list"></ol>
+    </section>
+  </main>
+</div>
+
+<dialog id="lookup-preview" aria-labelledby="lookup-preview-heading">
+  <div class="dialog-heading"><div class="icon-tile icon-tile--accent" aria-hidden="true"><svg class="icon"><use href="#i-search"/></svg></div><div><h2 id="lookup-preview-heading">Review imported details</h2><p class="dialog-kicker">DOI / ISBN lookup</p></div></div>
+  <p>Check the title, authors, and edition. Replacing starts a new source; filling blanks keeps your current edits.</p>
+  <div id="lookup-preview-content"></div>
+  <div class="dialog-actions"><button type="button" id="replace-lookup" class="button-solid">Use as new source</button><button type="button" id="merge-lookup" class="button-secondary">Fill empty fields</button><button type="button" id="cancel-lookup" class="button-quiet">Cancel</button></div>
+</dialog>
+
+<script src="../static/state.js"></script>
+<script src="../static/script.js"></script>
+</body>
+</html>

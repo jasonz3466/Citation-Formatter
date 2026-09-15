@@ -1,0 +1,53 @@
+# Python environments, caches, and build output
+.venv/
+venv/
+.venv-hidden-backup/
+.uv-cache/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# QuickCite stores each computer's saved citations here
+data/*
+!data/.gitkeep
+
+# Planning notes kept outside the public repository
+/ROADMAP.md
+/PROJECT_REVIEW.md
+
+# Node dependencies and test output
+node_modules/
+coverage/
+.nyc_output/
+.eslintcache
+
+# Local settings and secrets
+.env
+.env.*
+!.env.example
+
+# Editor and operating-system files
+.DS_Store
+._*
+__MACOSX/
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+git branch -M main

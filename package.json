@@ -1,0 +1,11 @@
+{
+  "name": "quickcite-ui-tests",
+  "private": true,
+  "version": "0.4.1",
+  "description": "Optional JavaScript tests only. Node is not needed to run the app.",
+  "scripts": {
+    "test": "node --test tests/js/*.test.cjs",
+    "check": "node --check src/citation_formatter/static/state.js && node --check src/citation_formatter/static/script.js"
+  },
+  "devDependencies": {"jsdom": "26.1.0"}
+}
