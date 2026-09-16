@@ -197,6 +197,4 @@ No license is granted by this repository as currently packaged. That is intentio
 ## Further reading
 
 - [RUN_GUIDE.md](RUN_GUIDE.md) for exact setup, migration, lookup troubleshooting, and saved-data backup steps.
-- [PROJECT_REVIEW.md](PROJECT_REVIEW.md) for the architecture and UI assessment.
-- [ROADMAP.md](ROADMAP.md) for planned features.
 - [CHANGELOG.md](CHANGELOG.md) for completed work.
