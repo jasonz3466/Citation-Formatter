@@ -67,6 +67,7 @@ From the project root, the folder containing `pyproject.toml`:
 
 ```bash
 uv sync --frozen
+export UV_PROJECT_ENVIRONMENT="$PWD/venv"
 uv run quickcite
 ```
 
